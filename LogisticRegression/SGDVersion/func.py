@@ -2,7 +2,6 @@ from numpy import *
 import matplotlib
 import matplotlib.pyplot as plt
 
-#加载数据
 def LoadData(filename):
     dataFeature = []
     dataLabel = []
@@ -18,34 +17,31 @@ def LoadData(filename):
 
     return dataFeature, dataLabel
 
-#sigmod 函数
-def sigmod(w):
-    return 1.0/(1 + exp(-w))
 
-# GD梯度下降实现
-def GradientDescent(DataFeature, dataLabel, num = 500, learn_rate = 0.001):
 
-    data = mat(DataFeature)
-    label =  mat(dataLabel).transpose()
-    # print(label)
-    m,n = shape(data)
-    # print(m,n)
-    Weight = ones((n, 1))
+def sigmod(data):
+    return 1.0 / (1 + exp(-data))
 
-    for i in range(num):
-        # print("i = ", i)
-        y_pred = sigmod(dot(DataFeature, Weight))
-        Weight =  Weight + dot(data.transpose(), learn_rate * (label - y_pred))
-        # print(dot(DataFeature, Weight))  
-        
-    return Weight
+
+def SGdescent(data, label, n_iter = 150):
+    dataNp = mat(data)
+    labelNp = mat(label).transpose()
+    m, n = dataNp.shape
+    weight = ones((n))
+    # print(weight)
+    alpa = 0.01
+    for i in range(m):
+        error = labelNp[i] - sigmod(dot(dataNp[i], weight.transpose()))
+        weight = weight + alpa * dot(error, dataNp[i])
+    return weight
+
 
 #做图
 def plot_fit(data, labelMat, weights):
     dataArr = array(data)
-    print(dataArr)
+    # print(dataArr)
     n = shape(dataArr)[0]
-    print(n)
+    # print(n)
     x_cord1 = []; y_cord1 = []
     x_cord2 = []; y_cord2 = []
     for i in range(n):  
