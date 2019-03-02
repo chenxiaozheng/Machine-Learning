@@ -21,19 +21,25 @@ def LoadData(filename):
 def sigmod(w):
     return 1.0/(1 + exp(-w))
 
-def GradientDescent(DataFeature, dataLabel, n = 500, learn_rate = 0.001):
+def GradientDescent(DataFeature, dataLabel, num = 500, learn_rate = 0.001):
 
     data = mat(DataFeature)
     label =  mat(dataLabel).transpose()
     # print(label)
     m,n = shape(data)
-    print(m,n)
+    # print(m,n)
     Weight = ones((n, 1))
 
-    for i in range(n):
+    for i in range(num):
+        # print("i = ", i)
         y_pred = sigmod(dot(DataFeature, Weight))
-        Weight =+ dot(data.transpose(), learn_rate * (label - y_pred))
+        Weight =  Weight + dot(data.transpose(), learn_rate * (label - y_pred))
         # print(dot(DataFeature, Weight))  
+    temp = 100
+    temp2 = 100
+    for _ in range(5):
+        temp =+ temp2
+        print(temp)
     return Weight
 
 def plot_fit(data, labelMat, weights):
