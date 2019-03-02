@@ -60,8 +60,10 @@ def plot_fit(data, labelMat, weights):
     ax.scatter(x_cord2, y_cord2, s = 30, c = 'green')  
     
     x = arange(-3.0, 3.0, 0.1)  
-    y = ((-weights[0]- weights[1] * x)/weights[2]).transpose()
-    ax.plot(x, y)  
+
+    # W0*X0 + W1*X1 + W2*X2 = 0 and X0 = 1  >>  X2 = (-W0 - W1*X1)/W2
+    x2 = ((-weights[0]- weights[1] * x)/weights[2]).transpose()
+    ax.plot(x, x2)  
     plt.xlabel('X1');  
     plt.ylabel('X2');  
     plt.show()  
