@@ -1,6 +1,13 @@
-import Numpy as np
+import numpy as np
+from func import *
 
 
+if __name__ == "__main__":
+    dataFeature, dataLabel = LoadData("../testSet.txt")
+    # print(dataFeature)
+    # print(dataLabel)
+    # print(sigmod(dataFeature))
+    weights = GradientDescent(dataFeature, dataLabel, 500, 0.001)
+    print(weights)
+    plot_fit(dataFeature, dataLabel, weights)
 
-if __name__ == if __name__ == "__main__":
-    dataFeature, dataLabel = LoadData()
