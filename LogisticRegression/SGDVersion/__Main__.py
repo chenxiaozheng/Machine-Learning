@@ -7,9 +7,11 @@ if __name__ == "__main__":
     # print(dataFeature)
     # print(dataLabel)
     # print(sigmod(dataFeature))
-    weights = SGdescent(dataFeature, dataLabel)
-    print(weights)
-    weights = weights.reshape(3, 1)
-    print(weights)
+    weights1 = SGdescent(dataFeature, dataLabel)          # 随机梯度下降
+    weights2 = advanceSGdescent(dataFeature, dataLabel)   # 改进的随机梯度下降，
+    # print(weights)
+    weights = weights1.reshape(3, 1)
+    weights = weights2.reshape(3, 1)
+    print(weights2)
     plot_fit(dataFeature, dataLabel, weights)
 

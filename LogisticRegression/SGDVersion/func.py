@@ -22,7 +22,7 @@ def LoadData(filename):
 def sigmod(data):
     return 1.0 / (1 + exp(-data))
 
-
+#随机梯度下降
 def SGdescent(data, label, n_iter = 150):
     dataNp = mat(data)
     labelNp = mat(label).transpose()
@@ -30,10 +30,29 @@ def SGdescent(data, label, n_iter = 150):
     weight = ones((n))
     # print(weight)
     alpa = 0.01
+    # print("m = ", len(range(m)))
     for i in range(m):
         error = labelNp[i] - sigmod(dot(dataNp[i], weight.transpose()))
         weight = weight + alpa * dot(error, dataNp[i])
     return weight
+
+
+#改进的随机梯度下降
+def advanceSGdescent(data, label, n_inter = 150):
+    dataNp = mat(data)
+    labelNp = mat(label).transpose()
+    m,n = dataNp.shape
+    weight = ones((n))
+    alpa = 0.01
+
+    for i in range(n_inter):
+        for j in range(m):
+            randidx = int(random.uniform(0, len(range(m))))
+            alpha = (4 / (1.0 + i + j))+ 0.01 
+            error = labelNp[randidx] - sigmod(dot(dataNp[randidx], weight.transpose()))
+            weight = weight + alpha * dot(error, dataNp[randidx])
+    return weight
+
 
 
 #做图
