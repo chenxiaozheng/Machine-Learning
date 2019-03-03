@@ -22,21 +22,36 @@ def LoadData(filename):
 def sigmod(w):
     return 1.0/(1 + exp(-w))
 
-# BGD梯度下降实现
-def GradientDescent(DataFeature, dataLabel, num = 500, learn_rate = 0.001):
+# MiniBGD梯度下降实现
+def MiniBatchGradientDescent(DataFeature, dataLabel, num = 2000, learn_rate = 0.001):
 
     data = mat(DataFeature)
     label =  mat(dataLabel).transpose()
-    print(data)
+    # print(label)
     m,n = shape(data)
     # print(m,n)
     Weight = ones((n, 1))
 
+
+    miniData = zeros(shape = (30, n), dtype = float)
+    miniLabel = zeros(shape = (30, 1), dtype = float)
+    listindex = []
     for i in range(num):
-        # print("i = ", i)
-        y_pred = sigmod(dot(DataFeature, Weight))
-        Weight =  Weight + dot(data.transpose(), learn_rate * (label - y_pred))
-        # print(dot(DataFeature, Weight))  
+        for i in range(30):
+            randindex = int(random.uniform(0, len(range(m))))
+            if randindex in listindex:
+                # print("randindex = ", randindex)
+                continue
+            else:
+                listindex.append(randindex)
+            miniData[i] = data[randindex]
+            miniLabel[i] = label[randindex]
+        # print(listindex)
+        # print("*" * 30)
+        # print(miniData)
+        # print("*" * 40)
+        y_pred = sigmod(dot(miniData, Weight))
+        Weight =  Weight + dot(miniData.transpose(), learn_rate * (miniLabel - y_pred))
         
     return Weight
 
