@@ -3,7 +3,7 @@ from func import *
 
 
 if __name__ == "__main__":
-    dataFeature, dataLabel = LoadData("../testSet.txt")
+    dataFeature, dataLabel = LoadData("../Data/wine.data")
     # print(dataFeature)
     # print(dataLabel)
     # print(sigmod(dataFeature))
