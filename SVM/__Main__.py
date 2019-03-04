@@ -6,6 +6,7 @@ if __name__ == "__main__":
     label = []
     feature, label = Load_data("./Data/testSet.txt")
     print(feature)
+    print(label)
 
 
 
